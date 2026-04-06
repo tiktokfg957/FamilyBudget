@@ -15,7 +15,7 @@ class AddTransactionViewModel(private val repository: BudgetRepository) : ViewMo
             val transaction = Transaction(
                 amount = amount,
                 category = category,
-                date = date,
+                dateTimestamp = date.time,
                 note = note,
                 type = type
             )
