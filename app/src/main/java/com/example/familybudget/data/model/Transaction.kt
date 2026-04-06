@@ -9,7 +9,7 @@ data class Transaction(
     val id: Long = 0,
     val amount: Double,
     val category: String,
-    val dateTimestamp: Long, // храним дату как миллисекунды
+    val date: Long, // timestamp
     val note: String? = null,
     val type: String // "income" or "expense"
 )
