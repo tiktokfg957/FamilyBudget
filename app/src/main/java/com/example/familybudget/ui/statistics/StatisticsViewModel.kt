@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.familybudget.data.repository.BudgetRepository
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class StatisticsViewModel(private val repository: BudgetRepository) : ViewModel() {
@@ -19,7 +20,7 @@ class StatisticsViewModel(private val repository: BudgetRepository) : ViewModel(
 
     private fun loadCategoryExpenses() {
         viewModelScope.launch {
-            val transactions = repository.getAllTransactions().asLiveData().value ?: emptyList()
+            val transactions = repository.getAllTransactions().first()
             val expenses = transactions.filter { it.type == "expense" }
             val categoryMap = expenses.groupBy { it.category }.mapValues { it.value.sumOf { trans -> trans.amount } }
             _categoryExpenses.postValue(categoryMap)
