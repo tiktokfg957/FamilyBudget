@@ -9,13 +9,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class TransactionAdapter(
-    private val onItemClick: (Transaction) -> Unit
+    private val onLongClick: (Transaction) -> Unit
 ) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
 
-    private var items = listOf<Transaction>()
+    private var transactions = listOf<Transaction>()
+    private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
     fun submitList(list: List<Transaction>) {
-        items = list
+        transactions = list
         notifyDataSetChanged()
     }
 
@@ -25,20 +26,24 @@ class TransactionAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(transactions[position])
+        holder.itemView.setOnLongClickListener {
+            onLongClick(transactions[position])
+            true
+        }
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = transactions.size
 
     inner class ViewHolder(private val binding: ItemTransactionBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(transaction: Transaction) {
-            binding.tvCategory.text = "Категория ${transaction.categoryId}" // временно, потом подставим имя
-            val amount = transaction.amount / 100.0
+            binding.tvCategory.text = transaction.category
+            binding.tvNote.text = transaction.note ?: ""
             val sign = if (transaction.type == "income") "+" else "-"
-            binding.tvAmount.text = "$sign${"%.2f".format(amount)} ₽"
-            val date = SimpleDateFormat("dd.MM", Locale.getDefault()).format(Date(transaction.date))
-            binding.tvDate.text = date
-            binding.root.setOnClickListener { onItemClick(transaction) }
+            val color = if (transaction.type == "income") android.graphics.Color.parseColor("#4CAF50") else android.graphics.Color.parseColor("#F44336")
+            binding.tvAmount.text = String.format("%s%.2f ₽", sign, transaction.amount)
+            binding.tvAmount.setTextColor(color)
+            binding.tvDate.text = dateFormat.format(Date(transaction.dateTimestamp))
         }
     }
 }
