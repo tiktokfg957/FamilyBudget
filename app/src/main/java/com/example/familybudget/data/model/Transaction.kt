@@ -2,7 +2,6 @@ package com.example.familybudget.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Date
 
 @Entity(tableName = "transactions")
 data class Transaction(
@@ -10,7 +9,7 @@ data class Transaction(
     val id: Long = 0,
     val amount: Double,
     val category: String,
-    val date: Date,
+    val dateTimestamp: Long, // храним дату как миллисекунды
     val note: String? = null,
     val type: String // "income" or "expense"
 )
