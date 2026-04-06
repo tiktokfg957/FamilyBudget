@@ -13,8 +13,9 @@ class FamilyBudgetApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        // инициализация БД (создание таблиц) не требует данных, поэтому просто запускаем
         CoroutineScope(Dispatchers.IO).launch {
-            repository.initDatabase()
+            repository.initDatabase() // может быть пустым
         }
     }
 }
