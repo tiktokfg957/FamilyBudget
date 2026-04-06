@@ -4,14 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.familybudget.data.model.Category
 import com.example.familybudget.data.model.Transaction
 
 @Database(
     entities = [Transaction::class, Category::class],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun transactionDao(): TransactionDao
     abstract fun categoryDao(): CategoryDao
@@ -27,7 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "family_budget_db"
                 ).fallbackToDestructiveMigration()
-                 .build()
+                    .build()
                 INSTANCE = instance
                 instance
             }
