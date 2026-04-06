@@ -43,7 +43,7 @@ class TransactionAdapter(
             val color = if (transaction.type == "income") android.graphics.Color.parseColor("#4CAF50") else android.graphics.Color.parseColor("#F44336")
             binding.tvAmount.text = String.format("%s%.2f ₽", sign, transaction.amount)
             binding.tvAmount.setTextColor(color)
-            binding.tvDate.text = dateFormat.format(Date(transaction.dateTimestamp))
+            binding.tvDate.text = dateFormat.format(Date(transaction.date))
         }
     }
 }
