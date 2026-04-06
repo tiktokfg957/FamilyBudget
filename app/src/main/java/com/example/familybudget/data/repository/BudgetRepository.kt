@@ -20,3 +20,19 @@ class BudgetRepository(private val db: AppDatabase) {
     suspend fun getTotalIncome(start: Long, end: Long): Long = db.transactionDao().getTotalIncome(start, end) ?: 0L
     suspend fun getTotalExpense(start: Long, end: Long): Long = db.transactionDao().getTotalExpense(start, end) ?: 0L
 }
+// Добавьте в BudgetRepository:
+suspend fun initCategoriesIfEmpty() {
+    val categories = db.categoryDao().getAll().firstOrNull()
+    if (categories.isNullOrEmpty()) {
+        val defaultCategories = listOf(
+            Category(name = "Еда", iconRes = 0, isIncome = false),
+            Category(name = "Транспорт", iconRes = 0, isIncome = false),
+            Category(name = "Жильё", iconRes = 0, isIncome = false),
+            Category(name = "Развлечения", iconRes = 0, isIncome = false),
+            Category(name = "Здоровье", iconRes = 0, isIncome = false),
+            Category(name = "Зарплата", iconRes = 0, isIncome = true),
+            Category(name = "Подарки", iconRes = 0, isIncome = true)
+        )
+        defaultCategories.forEach { db.categoryDao().insert(it) }
+    }
+}
