@@ -6,16 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.familybudget.data.model.Transaction
 import com.example.familybudget.data.repository.BudgetRepository
 import kotlinx.coroutines.launch
-import java.util.Date
 
 class AddTransactionViewModel(private val repository: BudgetRepository) : ViewModel() {
 
-    fun addTransaction(amount: Double, category: String, date: Date, note: String, type: String) {
+    fun addTransaction(amount: Double, category: String, date: Long, note: String, type: String) {
         viewModelScope.launch {
             val transaction = Transaction(
                 amount = amount,
                 category = category,
-                dateTimestamp = date.time,
+                date = date,
                 note = note,
                 type = type
             )
