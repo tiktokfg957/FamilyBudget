@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Семейный бюджет</string>
+    <string name="add_transaction">Добавить операцию</string>
+    <string name="amount">Сумма</string>
+    <string name="category">Категория</string>
+    <string name="date">Дата</string>
+    <string name="note">Примечание</string>
+    <string name="income">Доход</string>
+    <string name="expense">Расход</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+    <string name="total_balance">Баланс</string>
+    <string name="total_income">Доходы</string>
+    <string name="total_expense">Расходы</string>
+    <string name="statistics">Статистика</string>
+    <string name="transactions">Операции</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="income_short">Доход</string>
+    <string name="expense_short">Расход</string>
+</resources>
